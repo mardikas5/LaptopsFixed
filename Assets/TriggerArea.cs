@@ -7,8 +7,10 @@ public class TriggerArea : MonoBehaviour
     public SetVelocity velocity;
     public GameObject controller1;
     public GameObject controller2;
-    bool controller1InTrigger;
-    bool controller2InTrigger;
+    [SerializeField]
+    public bool controller1InTrigger { get; private set; }
+    [SerializeField]
+    public bool controller2InTrigger { get; private set; }
 
 
     void Start()
@@ -19,37 +21,38 @@ public class TriggerArea : MonoBehaviour
         controller2.GetComponent<ControllerInput>().OnTriggerUnPress += OnControllerTriggerUnPress;
     }
 
-    private void OnControllerTriggerPress(Transform controller)
+    private void OnControllerTriggerPress( Transform controller )
     {
-        if (controller1InTrigger)
+        if( controller1InTrigger )
         {
             velocity = controller1.GetComponent<SetVelocity>();
         }
 
-        if (controller2InTrigger)
+        if( controller2InTrigger )
         {
             velocity = controller2.GetComponent<SetVelocity>();
         }
     }
 
-    private void OnControllerTriggerUnPress(Transform controller)
+    private void OnControllerTriggerUnPress( Transform controller )
     {
         velocity = null;
     }
 
     public void OnTriggerExit( Collider other )
     {
-        var parent = other.gameObject.transform.parent;
-        if (parent != null)
+        //other.transform.root.GetComponentInChildren<SetVelocity>();
+
+        if( other != null )
         {
-            if (parent.gameObject == controller1)
+            if( other.gameObject == controller1 )
             {
-                Debug.Log("Trigger Exit");
+                Debug.Log( "Trigger Exit" );
                 controller1InTrigger = false;
             }
-            else if (parent.gameObject == controller2)
+            else if( other.gameObject == controller2 )
             {
-                Debug.Log("Trigger Exit");
+                Debug.Log( "Trigger Exit" );
                 controller2InTrigger = false;
             }
         }
@@ -57,20 +60,19 @@ public class TriggerArea : MonoBehaviour
 
     public void OnTriggerEnter( Collider other )
     {
-        var parent = other.gameObject.transform.parent;
-        if (parent != null)
-        {
-            if (parent.gameObject == controller1)
+        //if( other != null )
+        //{
+            if( other.gameObject == controller1 )
             {
-                Debug.Log("Trigger Enter");
+                Debug.Log( "Trigger Enter" );
                 controller1InTrigger = true;
             }
-            else if (parent.gameObject == controller2)
+            else if( other.gameObject == controller2 )
             {
-                Debug.Log("Trigger Enter");
+                Debug.Log( "Trigger Enter" );
                 controller2InTrigger = true;
             }
-        }
+       // }
     }
 
     // Update is called once per frame

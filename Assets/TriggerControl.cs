@@ -11,6 +11,8 @@ public class TriggerControl : MonoBehaviour
     ControllerGrabable affected;
     public Transform controller1;
     public Transform controller2;
+
+
     // Use this for initialization
     void Start()
     {
@@ -30,13 +32,19 @@ public class TriggerControl : MonoBehaviour
             {
                 if (k.velocity != null)
                 {
-                    Debug.Log("Dragging turntable");
-                    affected.GetComponent<Rigidbody>().velocity = affected.transform.TransformDirection(-k.velocity.Velocity);
+                    affected.GetComponent<Rigidbody>().isKinematic = false;
+
+                    Debug.Log("Dragging turntable 123");
+                    affected.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, -k.velocity.VelocityUnscaled.x * 5f,0);
+                   
+
+#if velocity
+                    affected.transform.TransformDirection(-k.velocity.Velocity);
                     if (affected.GetComponent<Rigidbody>().velocity.magnitude < .5f)
                     {
                         affected.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                     }
-                    Debug.Log(affected.GetComponent<Rigidbody>().velocity );
+#endif
                 }
             }
         }

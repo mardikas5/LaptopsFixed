@@ -8,6 +8,8 @@ public class Laptop : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        ButtonManager.Instance.Laptops.Add( this );
+
         var childComponents = this.GetComponentsInChildren<LaptopComponent>();
 
         foreach (var component in childComponents)

@@ -9,8 +9,8 @@ public class Grab : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        this.transform.parent.GetComponent<ControllerInput>().OnTriggerPress += OnControllerTriggerPress;
-        this.transform.parent.GetComponent<ControllerInput>().OnTriggerUnPress += OnControllerTriggerUnPress;
+        this.GetComponent<ControllerInput>().OnTriggerPress += OnControllerTriggerPress;
+        this.GetComponent<ControllerInput>().OnTriggerUnPress += OnControllerTriggerUnPress;
     }
 
     // Update is called once per frame
@@ -46,7 +46,7 @@ public class Grab : MonoBehaviour
         foreach (GameObject other in objectsInRange)
         {
             other.GetComponent<Rigidbody>().isKinematic = false;
-            other.GetComponent<Rigidbody>().velocity = this.GetComponent<SetVelocity>().Velocity;
+            other.GetComponent<Rigidbody>().velocity = this.GetComponent<SetVelocity>().VelocityUnscaled;
             other.transform.parent = null;
         }
 

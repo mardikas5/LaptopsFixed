@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
+    public static ButtonManager Instance;
+
     public List<Laptop> Laptops;
 
     public Transform button;
     // Use this for initialization
     void Start()
     {
+        Instance = this;
+
         var components = Enum.GetValues(typeof(LaptopComponentType));
 
         const float offset = 0.2f;
