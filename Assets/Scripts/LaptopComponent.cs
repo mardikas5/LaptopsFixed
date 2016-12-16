@@ -13,60 +13,58 @@ public class LaptopComponent : MonoBehaviour
     private Vector3 shownPosition;
     private float time = 1f;
 
-    public Vector3 LocalRot;
+    public Quaternion localRot;
 
     public void Start()
     {
         intitialPosition = this.transform.localPosition;
-        LocalRot = transform.localEulerAngles;
-        shownPosition = intitialPosition + new Vector3(0,1f,0);
+        localRot = this.transform.localRotation;
+        shownPosition = intitialPosition + new Vector3(0, 1f, 0);
     }
 
     public void Show()
     {
-        Debug.Log( "Show: " + Type );
-        if( resizeRoutine != null )
+        Debug.Log("Show: " + Type);
+        if (resizeRoutine != null)
         {
-            StopCoroutine( resizeRoutine );
+            StopCoroutine(resizeRoutine);
         }
 
-        resizeRoutine = StartCoroutine( moveYAxis( shownPosition, time, Vector3.zero ));
+        var direction = Quaternion.LookRotation(this.shownPosition - Camera.current.transform.position, Camera.current.transform.up);
+
+        var l = direction * Quaternion.Inverse(this.transform.parent.rotation);
+
+        resizeRoutine = StartCoroutine(moveYAxis(shownPosition, time, l));
     }
 
     public void Hide()
     {
-        Debug.Log( "Hide: " + Type );
-        if( resizeRoutine != null )
+        Debug.Log("Hide: " + Type);
+        if (resizeRoutine != null)
         {
-            StopCoroutine( resizeRoutine );
+            StopCoroutine(resizeRoutine);
         }
 
-        resizeRoutine = StartCoroutine( moveYAxis( intitialPosition, time, Vector3.zero ) );
+        resizeRoutine = StartCoroutine(moveYAxis(intitialPosition, time, localRot));
     }
 
-    private IEnumerator moveYAxis( Vector3 targetPos, float time, Vector3 rot)
+    private IEnumerator moveYAxis(Vector3 targetPos, float time, Quaternion rot)
     {
         Vector3 startPos = this.transform.localPosition;
+        Quaternion startRotation = this.transform.localRotation;
         Vector3 endPos = targetPos;
-        //endPos = targetPos;
         float currentTime = 0.0f;
 
         do
         {
-            this.transform.localPosition = Vector3.Lerp( startPos, endPos, currentTime / time );
+            this.transform.localPosition = Vector3.Lerp(startPos, endPos, currentTime / time);
+            this.transform.localRotation = Quaternion.Lerp(startRotation, rot, currentTime / time);
             currentTime += Time.deltaTime;
 
-            
-            //this.transform.localEulerAngles = Vector3.Lerp( LocalRot,  -( targetPos - Camera.current.transform.position ), currentTime / time);
-            //transform.localEulerAngles = new Vector3( -90, transform.eulerAngles.y, transform.eulerAngles.z );
-
             yield return null;
-        } while( currentTime <= time );
+        } while (currentTime <= time);
 
-       
-
-        //OnDone();
-
+        this.transform.localRotation = rot;
         this.transform.localPosition = endPos;
     }
 }
