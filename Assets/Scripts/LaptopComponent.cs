@@ -19,36 +19,45 @@ public class LaptopComponent : MonoBehaviour
     {
         intitialPosition = this.transform.localPosition;
         localRot = this.transform.localRotation;
-        shownPosition = intitialPosition + new Vector3(0, 1f, 0);
+        shownPosition = intitialPosition + new Vector3( 0, 1f, 0 );
     }
 
     public void Show()
     {
-        Debug.Log("Show: " + Type);
-        if (resizeRoutine != null)
+        Debug.Log( "Show: " + Type );
+        if( resizeRoutine != null )
         {
-            StopCoroutine(resizeRoutine);
+            StopCoroutine( resizeRoutine );
         }
 
-        var direction = Quaternion.LookRotation(this.shownPosition - Camera.current.transform.position, Camera.current.transform.up);
+        Quaternion initQ = transform.localRotation;
+        Vector3 init = transform.localPosition;
 
-        var l = direction * Quaternion.Inverse(this.transform.parent.rotation);
+        transform.localPosition = shownPosition;
+        transform.LookAt( Camera.main.transform );
+        transform.localEulerAngles += new Vector3(0,0,180);
 
-        resizeRoutine = StartCoroutine(moveYAxis(shownPosition, time, l));
+        Quaternion rot = transform.localRotation;
+
+        transform.localPosition = init;
+        transform.localRotation = initQ;
+        
+
+        resizeRoutine = StartCoroutine( moveYAxis( shownPosition, time, rot ) );
     }
 
     public void Hide()
     {
-        Debug.Log("Hide: " + Type);
-        if (resizeRoutine != null)
+        Debug.Log( "Hide: " + Type );
+        if( resizeRoutine != null )
         {
-            StopCoroutine(resizeRoutine);
+            StopCoroutine( resizeRoutine );
         }
 
-        resizeRoutine = StartCoroutine(moveYAxis(intitialPosition, time, localRot));
+        resizeRoutine = StartCoroutine( moveYAxis( intitialPosition, time, localRot ) );
     }
 
-    private IEnumerator moveYAxis(Vector3 targetPos, float time, Quaternion rot)
+    private IEnumerator moveYAxis( Vector3 targetPos, float time, Quaternion rot )
     {
         Vector3 startPos = this.transform.localPosition;
         Quaternion startRotation = this.transform.localRotation;
@@ -57,12 +66,12 @@ public class LaptopComponent : MonoBehaviour
 
         do
         {
-            this.transform.localPosition = Vector3.Lerp(startPos, endPos, currentTime / time);
-            this.transform.localRotation = Quaternion.Lerp(startRotation, rot, currentTime / time);
+            this.transform.localPosition = Vector3.Lerp( startPos, endPos, currentTime / time );
+            this.transform.localRotation = Quaternion.Lerp( startRotation, rot, currentTime / time );
             currentTime += Time.deltaTime;
 
             yield return null;
-        } while (currentTime <= time);
+        } while( currentTime <= time );
 
         this.transform.localRotation = rot;
         this.transform.localPosition = endPos;

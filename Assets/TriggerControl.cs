@@ -35,7 +35,7 @@ public class TriggerControl : MonoBehaviour
                     affected.GetComponent<Rigidbody>().isKinematic = false;
 
                     Debug.Log("Dragging turntable 123");
-                    affected.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, -k.velocity.VelocityUnscaled.x * 5f,0);
+                    affected.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, -k.velocity.VelocityUnscaled.x * 55f,0);
                    
 
 #if velocity
