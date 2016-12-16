@@ -17,6 +17,7 @@ public class SetVelocity : MonoBehaviour {
 	void Update () {
 		CurrentPos = transform.position;
         Velocity = (CurrentPos - lastPos) * (1f/ Time.deltaTime) * 200f;
+        //Velocity = new Vector3(50f,0,50f);
         lastPos = CurrentPos;
 	}
 }

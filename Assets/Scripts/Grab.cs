@@ -18,14 +18,10 @@ public class Grab : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            var MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            var direction = (MousePos -Camera.main.transform.position).normalized;
-
-            Ray ray = new Ray(Camera.main.transform.position, direction);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
-            Debug.DrawRay(Camera.main.transform.position, direction, Color.red, 10);
+            Debug.DrawRay(ray.origin,ray.direction, Color.red, 10);
             if (Physics.Raycast(ray, out hit))
             {
                 this.transform.position = hit.point;

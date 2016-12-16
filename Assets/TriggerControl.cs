@@ -32,6 +32,11 @@ public class TriggerControl : MonoBehaviour
                 {
                     Debug.Log("Dragging turntable");
                     affected.GetComponent<Rigidbody>().velocity = affected.transform.TransformDirection(-k.velocity.Velocity);
+                    if (affected.GetComponent<Rigidbody>().velocity.magnitude < .5f)
+                    {
+                        affected.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                    }
+                    Debug.Log(affected.GetComponent<Rigidbody>().velocity );
                 }
             }
         }
