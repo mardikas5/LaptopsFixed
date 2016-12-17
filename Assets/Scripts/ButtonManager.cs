@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     public static ButtonManager Instance;
+    public LaptopCompareArea CompareArea;
 
     public List<Laptop> Laptops;
 
@@ -30,6 +31,7 @@ public class ButtonManager : MonoBehaviour
             pushableButton.Type = component;
             count++;
         }
+
     }
 
     // Update is called once per frame
@@ -47,6 +49,8 @@ public class ButtonManager : MonoBehaviour
                 if (laptop != null)
                     laptop.ShowInfo(component);
             }
+
+            CompareArea.CompareType(component);
         }
         else
         {
@@ -55,6 +59,8 @@ public class ButtonManager : MonoBehaviour
                 if (laptop != null)
                     laptop.HideInfo(component);
             }
+
+            CompareArea.StopCompareType(component);
         }
     }
 

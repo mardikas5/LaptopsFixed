@@ -21,7 +21,7 @@ public class Grab : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
-            Debug.DrawRay(ray.origin,ray.direction, Color.red, 10);
+            Debug.DrawRay(ray.origin, ray.direction, Color.red, 10);
             if (Physics.Raycast(ray, out hit))
             {
                 this.transform.position = hit.point;
@@ -31,7 +31,6 @@ public class Grab : MonoBehaviour
 
     private void OnControllerTriggerPress(Transform controller)
     {
-        Debug.Log("Grab");
         foreach (GameObject other in objectsInRange)
         {
             other.GetComponent<Rigidbody>().isKinematic = true;
@@ -41,8 +40,6 @@ public class Grab : MonoBehaviour
 
     private void OnControllerTriggerUnPress(Transform controller)
     {
-        Debug.Log("UnGrab");
-
         foreach (GameObject other in objectsInRange)
         {
             other.GetComponent<Rigidbody>().isKinematic = false;
@@ -57,7 +54,6 @@ public class Grab : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
         {
-            Debug.Log("Add " + other.name);
             objectsInRange.Add(other.gameObject);
         }
     }
@@ -66,7 +62,6 @@ public class Grab : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
         {
-            Debug.Log("Remove " + other.name);
             objectsInRange.Remove(other.gameObject);
         }
     }

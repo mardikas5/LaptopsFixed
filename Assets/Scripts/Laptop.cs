@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Laptop : MonoBehaviour
 {
-    private Dictionary<LaptopComponentType, LaptopComponent> components = new Dictionary<LaptopComponentType, LaptopComponent>();
+    public Dictionary<LaptopComponentType, LaptopComponent> Components = new Dictionary<LaptopComponentType, LaptopComponent>();
     // Use this for initialization
     void Start()
     {
-        ButtonManager.Instance.Laptops.Add( this );
+        ButtonManager.Instance.Laptops.Add(this);
 
         var childComponents = this.GetComponentsInChildren<LaptopComponent>();
 
         foreach (var component in childComponents)
         {
-            this.components.Add(component.Type, component);
+            this.Components.Add(component.Type, component);
         }
     }
 
@@ -22,7 +22,7 @@ public class Laptop : MonoBehaviour
     {
         LaptopComponent component;
 
-        if (components.TryGetValue(componentType, out component))
+        if (Components.TryGetValue(componentType, out component))
         {
             component.Show();
         }
@@ -32,7 +32,7 @@ public class Laptop : MonoBehaviour
     {
         LaptopComponent component;
 
-        if (components.TryGetValue(componentType, out component))
+        if (Components.TryGetValue(componentType, out component))
         {
             component.Hide();
         }
