@@ -8,6 +8,10 @@ public class LaptopComponent : MonoBehaviour
     [Multiline]
     public string Text;
     public LaptopComponentType Type;
+
+    public int Value;
+    public Renderer BackgroundColor;
+
     private Coroutine resizeRoutine;
     private Vector3 intitialPosition;
     private Vector3 shownPosition;
@@ -24,7 +28,6 @@ public class LaptopComponent : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("Show: " + Type);
         if (resizeRoutine != null)
         {
             StopCoroutine(resizeRoutine);

@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4126622331821842}
   - component: {fileID: 33833659963234192}
   m_Layer: 0
-  m_Name: CPU
+  m_Name: Scale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4947262637579510}
   - component: {fileID: 114641920124380044}
   m_Layer: 8
-  m_Name: ForwardFix (1)
+  m_Name: GPU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 114365888449424458}
   - component: {fileID: 114902950494883970}
   m_Layer: 8
-  m_Name: Canvas
+  m_Name: NameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 33862297516037264}
   - component: {fileID: 23723122565040324}
   m_Layer: 8
-  m_Name: Laptop
+  m_Name: LaptopBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 4885440643903998}
   - component: {fileID: 114976446582275186}
   m_Layer: 8
-  m_Name: ForwardFix
+  m_Name: CPU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 65347247437903642}
   m_Layer: 8
   m_Name: Laptop
-  m_TagString: Untagged
+  m_TagString: Laptop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 4777884395511590}
   - component: {fileID: 33869280993647370}
   m_Layer: 0
-  m_Name: Gpu
+  m_Name: Scale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,7 +724,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Macbook
+  m_Text: "Macbook\n\xA31300"
 --- !u!114 &114176961296329096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -936,6 +936,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: 
   Type: 1
+  Value: 0
+  BackgroundColor: {fileID: 23148175326938406}
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114782408110368498
 MonoBehaviour:
@@ -1061,8 +1063,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52fe60e2f072a1f4db3272d939988907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: 
+  Text: i7
   Type: 0
+  Value: 0
+  BackgroundColor: {fileID: 23948459911939934}
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &222017529577366462
 CanvasRenderer:
