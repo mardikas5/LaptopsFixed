@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitialAngularVelocity : MonoBehaviour {
+public class InitialAngularVelocity : MonoBehaviour
+{
 
-public Vector3 AngularVelocity;
+    public Vector3 AngularVelocity;
 
-	// Use this for initialization
-	void Start () {
-		var rb = this.GetComponent<Rigidbody>();
+    // Use this for initialization
+    void Start()
+    {
+        var rb = this.GetComponent<Rigidbody>();
 
-		if (rb != null)
-		{
-			rb.AddTorque(AngularVelocity, ForceMode.VelocityChange);
-		}
-	}
+        if (rb != null)
+        {
+            rb.AddTorque(AngularVelocity, ForceMode.VelocityChange);
+        }
+    }
 }
+

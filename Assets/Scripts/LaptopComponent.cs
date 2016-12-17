@@ -42,9 +42,7 @@ public class LaptopComponent : MonoBehaviour
         transform.localPosition = init;
         transform.localRotation = initQ;
 
-
         resizeRoutine = StartCoroutine(moveYAxis(shownPosition, time, rot));
-        this.gameObject.AddComponent<Billboard>();
     }
 
     public void Hide()
@@ -55,7 +53,6 @@ public class LaptopComponent : MonoBehaviour
             StopCoroutine(resizeRoutine);
         }
 
-        Destroy(this.gameObject.GetComponent<Billboard>());
         resizeRoutine = StartCoroutine(moveYAxis(intitialPosition, time, localRot));
     }
 
