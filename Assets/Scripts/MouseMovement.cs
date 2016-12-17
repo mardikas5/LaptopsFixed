@@ -13,8 +13,8 @@ public class MouseMovement : MonoBehaviour {
 	void Update () {
 		var x = Input.GetAxis("Mouse X");
         var y = Input.GetAxis("Mouse Y");
-        var z = Input.GetAxis("Mouse ScrollWheel");
+        var z = Input.GetAxis("Mouse ScrollWheel") * 10;
         var change = new Vector3(x, y, z);
-        this.transform.Translate(change * 0.01f);
+        this.transform.Translate(change * 0.1f);
     }
 }
