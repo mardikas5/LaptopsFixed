@@ -11,7 +11,9 @@ public class TriggerArea : MonoBehaviour
     public bool controller1InTrigger { get; private set; }
     [SerializeField]
     public bool controller2InTrigger { get; private set; }
+    public bool Highlight = false;
 
+    public TriggerControl parent;
 
     void Start()
     {
@@ -47,11 +49,13 @@ public class TriggerArea : MonoBehaviour
         {
             if( other.gameObject == controller1 )
             {
+                Highlight = false;
                 Debug.Log( "Trigger Exit" );
                 controller1InTrigger = false;
             }
             else if( other.gameObject == controller2 )
             {
+                Highlight = false;
                 Debug.Log( "Trigger Exit" );
                 controller2InTrigger = false;
             }
@@ -62,22 +66,49 @@ public class TriggerArea : MonoBehaviour
     {
         //if( other != null )
         //{
-            if( other.gameObject == controller1 )
-            {
-                Debug.Log( "Trigger Enter" );
-                controller1InTrigger = true;
-            }
-            else if( other.gameObject == controller2 )
-            {
-                Debug.Log( "Trigger Enter" );
-                controller2InTrigger = true;
-            }
-       // }
+        if( other.gameObject == controller1 )
+        {
+            Highlight = true;
+            Debug.Log( "Trigger Enter" );
+            controller1InTrigger = true;
+        }
+        else if( other.gameObject == controller2 )
+        {
+            Highlight = true;
+            Debug.Log( "Trigger Enter" );
+            controller2InTrigger = true;
+        }
+        // }
     }
 
     // Update is called once per frame
     void Update()
     {
+        DoHighlight();
+    }
 
+    void DoHighlight()
+    {
+        if( parent != null )
+        {
+            if( parent.dragged == this )
+            {
+                this.gameObject.layer = LayerMask.NameToLayer( "Outline" );
+                return;
+            }
+            else if( parent.dragged != null )
+            {
+                this.gameObject.layer = LayerMask.NameToLayer( "Default" );
+                return;
+            }
+        }
+        if( Highlight )
+        {
+            this.gameObject.layer = LayerMask.NameToLayer( "Outline" );
+        }
+        else
+        {
+            this.gameObject.layer = LayerMask.NameToLayer( "Default" );
+        }
     }
 }

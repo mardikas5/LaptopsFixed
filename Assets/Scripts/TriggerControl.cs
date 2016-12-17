@@ -11,12 +11,17 @@ public class TriggerControl : MonoBehaviour
     ControllerGrabable affected;
     public Transform controller1;
     public Transform controller2;
-
+    public Material outlineMat;
+    public TriggerArea dragged = null;
 
     // Use this for initialization
     void Start()
     {
         TriggerAreas = FindObjectsOfType<TriggerArea>().ToList();
+        foreach( TriggerArea p in TriggerAreas )
+        {
+            p.parent = this;
+        }
         affected = FindObjectOfType<ControllerGrabable>();
         controller1.gameObject.AddComponent<SetVelocity>();
         controller2.gameObject.AddComponent<SetVelocity>();
@@ -26,18 +31,16 @@ public class TriggerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (affected != null)
+        dragged = null;
+        if( affected != null )
         {
-            foreach (TriggerArea k in TriggerAreas)
+            foreach( TriggerArea k in TriggerAreas )
             {
-                if (k.velocity != null)
+                if( k.velocity != null )
                 {
+                    dragged = k;
                     affected.GetComponent<Rigidbody>().isKinematic = false;
-
-                    Debug.Log("Dragging turntable 123");
-                    affected.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, -k.velocity.VelocityUnscaled.x * 55f,0);
-                   
-
+                    affected.GetComponent<Rigidbody>().angularVelocity = new Vector3( 0, -k.velocity.VelocityUnscaled.x * 55f, 0 );
 #if velocity
                     affected.transform.TransformDirection(-k.velocity.Velocity);
                     if (affected.GetComponent<Rigidbody>().velocity.magnitude < .5f)
@@ -46,6 +49,22 @@ public class TriggerControl : MonoBehaviour
                     }
 #endif
                 }
+            }
+        }
+        Colors();
+    }
+
+    void Colors()
+    {
+        if( outlineMat != null )
+        {
+            if( dragged == null )
+            {
+                outlineMat.SetColor( "_Color", Color.white );
+            }
+            else
+            {
+                 outlineMat.SetColor( "_Color", Color.green);
             }
         }
     }
