@@ -16,58 +16,80 @@ public class Grab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if( Input.GetKeyDown( KeyCode.R ) )
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
             RaycastHit hit;
-            Debug.DrawRay(ray.origin,ray.direction, Color.red, 10);
-            if (Physics.Raycast(ray, out hit))
+            Debug.DrawRay( ray.origin, ray.direction, Color.red, 10 );
+            if( Physics.Raycast( ray, out hit ) )
             {
                 this.transform.position = hit.point;
             }
         }
     }
 
-    private void OnControllerTriggerPress(Transform controller)
+    private void OnControllerTriggerPress( Transform controller )
     {
-        Debug.Log("Grab");
-        foreach (GameObject other in objectsInRange)
+        Debug.Log( "Grab" );
+        foreach( GameObject other in objectsInRange )
         {
-            other.GetComponent<Rigidbody>().isKinematic = true;
+            IGrabbable grabbable = other.GetComponent<IGrabbable>();
+            if( grabbable != null )
+            {
+                grabbable.Grab();
+            }
+
+            if( other.GetComponent<Rigidbody>() )
+            {
+                other.GetComponent<BoxCollider>().isTrigger = true;
+                other.GetComponent<Rigidbody>().useGravity = false;
+                other.GetComponent<Rigidbody>().isKinematic = true;
+            }
             other.transform.parent = this.transform;
         }
     }
 
-    private void OnControllerTriggerUnPress(Transform controller)
+    private void OnControllerTriggerUnPress( Transform controller )
     {
-        Debug.Log("UnGrab");
+        Debug.Log( "UnGrab" );
 
-        foreach (GameObject other in objectsInRange)
+        foreach( GameObject other in objectsInRange )
         {
-            other.GetComponent<Rigidbody>().isKinematic = false;
-            other.GetComponent<Rigidbody>().velocity = this.GetComponent<SetVelocity>().VelocityUnscaled;
+            IGrabbable grabbable = other.GetComponent<IGrabbable>();
+            if( grabbable != null )
+            {
+                grabbable.Drop();
+            }
+
+            if( other.GetComponent<Rigidbody>() )
+            {
+                other.GetComponent<BoxCollider>().isTrigger = false;
+                other.GetComponent<Rigidbody>().useGravity = true;
+                other.GetComponent<Rigidbody>().isKinematic = false;
+                other.GetComponent<Rigidbody>().velocity = this.GetComponent<SetVelocity>().VelocityUnscaled;
+            }
             other.transform.parent = null;
         }
 
         objectsInRange.Clear();
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter( Collider other )
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
+        if( other.gameObject.layer == LayerMask.NameToLayer( "Grabable" ) )
         {
-            Debug.Log("Add " + other.name);
-            objectsInRange.Add(other.gameObject);
+            Debug.Log( "Add " + other.name );
+            objectsInRange.Add( other.gameObject );
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    public void OnTriggerExit( Collider other )
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
+        if( other.gameObject.layer == LayerMask.NameToLayer( "Grabable" ) )
         {
-            Debug.Log("Remove " + other.name);
-            objectsInRange.Remove(other.gameObject);
+            Debug.Log( "Remove " + other.name );
+            objectsInRange.Remove( other.gameObject );
         }
     }
 }

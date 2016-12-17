@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laptop : MonoBehaviour
+public class Laptop : MonoBehaviour, IGrabbable
 {
     private Dictionary<LaptopComponentType, LaptopComponent> components = new Dictionary<LaptopComponentType, LaptopComponent>();
+
+    bool IsGrabbable = true;
+
     // Use this for initialization
     void Start()
     {
@@ -38,9 +42,33 @@ public class Laptop : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    //IGrabbable Interface ------------------------
+    public bool isGrabbable
+    {
+        get
+        {
+            return IsGrabbable;
+        }
+
+        set
+        {
+            IsGrabbable = value;
+        }
+    }
+
+    public void Grab()
+    {
+        IGrabbableExtentions.currentGrabbed = this;
+
+
+        //throw new NotImplementedException();
+    }
+
+    public void Drop()
     {
 
+        //throw new NotImplementedException();
     }
 }
