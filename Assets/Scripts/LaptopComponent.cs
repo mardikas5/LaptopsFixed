@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LaptopComponent : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class LaptopComponent : MonoBehaviour
     public LaptopComponentType Type;
 
     public int Value;
-    public Renderer BackgroundColor;
+    public Image BackgroundImage;
 
     private Coroutine resizeRoutine;
     private Vector3 intitialPosition;
