@@ -923,9 +923,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52fe60e2f072a1f4db3272d939988907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BasicDescription: Basic Description
+  TechnicalDescription: Technical Description
   Type: 1
   Value: 0
-  BackgroundImage: {fileID: 114353004977473050}
+  ComparisonImage: {fileID: 0}
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114024588574953262
 MonoBehaviour:
@@ -1013,9 +1015,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52fe60e2f072a1f4db3272d939988907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BasicDescription: Basic Description
+  TechnicalDescription: Technical Description
   Type: 0
   Value: 0
-  BackgroundImage: {fileID: 114442607494141482}
+  ComparisonImage: {fileID: 0}
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114102444229580978
 MonoBehaviour:
@@ -1290,7 +1294,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: i5
+  m_Text: 
 --- !u!114 &114631391540648042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1323,7 +1327,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: i5
+  m_Text: 
 --- !u!114 &114689724817547596
 MonoBehaviour:
   m_ObjectHideFlags: 1
