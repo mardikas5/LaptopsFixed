@@ -7,7 +7,10 @@ public class Billboard : MonoBehaviour
     [SerializeField]
     bool useLookAt = false;
     public bool isEnabled;
+    public bool OnlyYrot;
+    public bool StopMovingCloseUp;
     public Vector3 rotOffset;
+
     // Use this for initialization
     void Start()
     {
@@ -22,14 +25,26 @@ public class Billboard : MonoBehaviour
             return;
         }
 
-        if( useLookAt )
+        float distance = Vector3.Distance( transform.position.xz(), Camera.main.transform.position.xz() );
+        if( !( StopMovingCloseUp && distance < .5f ) )
         {
-            transform.LookAt( Camera.main.transform );
-            transform.eulerAngles += rotOffset;
-        }
-        else
-        {
-            transform.rotation = Quaternion.LookRotation( transform.position - Camera.main.transform.position );
+            if( useLookAt )
+            {
+                Vector3 previous = transform.eulerAngles;
+
+                transform.LookAt( Camera.main.transform );
+                transform.eulerAngles += rotOffset;
+
+                if( OnlyYrot )
+                {
+                    previous.y = transform.eulerAngles.y;
+                    transform.eulerAngles = previous;
+                }
+            }
+            else
+            {
+                transform.rotation = Quaternion.LookRotation( transform.position - Camera.main.transform.position );
+            }
         }
     }
 }

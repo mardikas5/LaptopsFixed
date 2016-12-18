@@ -64,7 +64,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1058372452269068
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -572,8 +572,9 @@ Transform:
   m_Children:
   - {fileID: 4512654256217622}
   - {fileID: 4097541752036460}
+  - {fileID: 224916002313324332}
   m_Father: {fileID: 4550787396901500}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4512654256217622
 Transform:
@@ -609,10 +610,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1488807277810874}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.8166001, y: 0.17081508, z: 0.028535187}
+  m_LocalPosition: {x: 0.51, y: 0.17081508, z: 0.39}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
-  - {fileID: 224916002313324332}
   - {fileID: 4853294821799812}
   - {fileID: 4905038856091210}
   - {fileID: 4425905554179944}
@@ -648,7 +648,7 @@ Transform:
   - {fileID: 4212483160555526}
   - {fileID: 4406197828595948}
   m_Father: {fileID: 4550787396901500}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4905038856091210
 Transform:
@@ -661,7 +661,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4550787396901500}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23172864461976840
 MeshRenderer:
@@ -924,13 +924,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1058372452269068}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be4fe7f38c2b92f4ba78fc853922085b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useLookAt: 0
   isEnabled: 0
+  OnlyYrot: 0
+  StopMovingCloseUp: 0
   rotOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &114045084333647360
 MonoBehaviour:
@@ -944,7 +946,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useLookAt: 1
-  isEnabled: 0
+  isEnabled: 1
+  OnlyYrot: 1
+  StopMovingCloseUp: 1
   rotOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &114090550262872878
 MonoBehaviour:
@@ -959,6 +963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useLookAt: 1
   isEnabled: 0
+  OnlyYrot: 0
+  StopMovingCloseUp: 0
   rotOffset: {x: 0, y: 0, z: 180}
 --- !u!114 &114091718949872302
 MonoBehaviour:
@@ -974,7 +980,7 @@ MonoBehaviour:
   BasicDescription: Basic Description
   TechnicalDescription: Technical Description
   Type: 0
-  Value: 0
+  Value: 5
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114142085325178804
 MonoBehaviour:
@@ -1399,6 +1405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useLookAt: 1
   isEnabled: 0
+  OnlyYrot: 0
+  StopMovingCloseUp: 0
   rotOffset: {x: 0, y: 0, z: 180}
 --- !u!114 &114861570126725308
 MonoBehaviour:
@@ -1447,7 +1455,7 @@ MonoBehaviour:
   BasicDescription: Basic Description
   TechnicalDescription: Technical Description
   Type: 1
-  Value: 0
+  Value: 5
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114933976960933090
 MonoBehaviour:
@@ -1559,7 +1567,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.02
+    widthMultiplier: 0.005
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1575,16 +1583,16 @@ LineRenderer:
     colorGradient:
       key0:
         serializedVersion: 2
-        rgba: 4285953654
+        rgba: 1115059830
       key1:
         serializedVersion: 2
         rgba: 4289638062
       key2:
         serializedVersion: 2
-        rgba: 0
+        rgba: 4278190080
       key3:
         serializedVersion: 2
-        rgba: 0
+        rgba: 2147483648
       key4:
         serializedVersion: 2
         rgba: 0
@@ -1606,16 +1614,16 @@ LineRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime1: 11372
+      atime2: 54548
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 4
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -1800,7 +1808,7 @@ RectTransform:
   m_Children:
   - {fileID: 224709351518204388}
   m_Father: {fileID: 4550787396901500}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -215.483, y: -7.9179993, z: 176.493}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2038,18 +2046,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1058372452269068}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children:
   - {fileID: 224473929796609200}
-  m_Father: {fileID: 4550787396901500}
-  m_RootOrder: 0
+  m_Father: {fileID: 4425905554179944}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.5}
-  m_SizeDelta: {x: 723, y: 555}
+  m_AnchoredPosition: {x: 0, y: 1.52}
+  m_SizeDelta: {x: 1173.75, y: 180.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224992621807942196
 RectTransform:

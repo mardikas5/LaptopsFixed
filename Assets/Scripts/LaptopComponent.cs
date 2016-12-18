@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class LaptopComponent : MonoBehaviour
 {
+    public static Dictionary<LaptopComponentType, LaptopComponent> bestComponents;
+
+
     public string BasicDescription;
     [Multiline]
     public string TechnicalDescription;
@@ -29,16 +32,18 @@ public class LaptopComponent : MonoBehaviour
     public bool Shown { get; private set; }
 
     private Billboard billboard;
-    private Vector3 ShownOffset = new Vector3( 0, 1f, 0 );
+    private static Vector3 ShownOffset = new Vector3( 0, 1f, 0 );
 
 
     public void Start()
     {
+        addToComparison( this );
+
         billboard = GetComponent<Billboard>();
         Assert.IsNotNull( billboard, "Billboard missing from component" );
         canvasComponent = GetComponentInChildren<Canvas>();
 
-        Shown = false;        
+        Shown = false;
         canvasComponent.enabled = false;
 
         comparisonImage = transform.Find( "Scale/Canvas/PanelComponent" ).GetComponent<Image>();
@@ -65,7 +70,17 @@ public class LaptopComponent : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Vector3.Distance(Camera.main.transform.position, this.transform.position) > 0.5f)
+        float distance = Vector3.Distance( Camera.main.transform.position, this.transform.position );
+        if( distance < 2f )
+        {
+            billboard.isEnabled = false;
+        }
+        else
+        {
+            billboard.isEnabled = true;
+        }
+
+        if( distance > 0.5f )
         {
             this.componentText.text = this.BasicDescription;
         }
@@ -73,7 +88,7 @@ public class LaptopComponent : MonoBehaviour
         {
             this.componentText.text = this.TechnicalDescription;
         }
-        Debug.Log( Vector3.Distance( Camera.main.transform.position, this.transform.position ) );
+        //Debug.Log( Vector3.Distance( Camera.main.transform.position, this.transform.position ) );
     }
 
     public void Show()
@@ -86,7 +101,13 @@ public class LaptopComponent : MonoBehaviour
         Quaternion initQ = transform.localRotation;
         Vector3 init = transform.localPosition;
 
-        transform.localPosition = shownPosition;
+        Vector3 moveTo = shownPosition;
+        if( bestComponents[Type] == this )
+        {
+           moveTo += new Vector3( 0, 1f, 0 );
+        }
+
+        transform.localPosition = moveTo;
         transform.LookAt( Camera.main.transform );
         transform.localEulerAngles += new Vector3( 0, 0, 180 );
 
@@ -95,7 +116,7 @@ public class LaptopComponent : MonoBehaviour
         transform.localPosition = init;
         transform.localRotation = initQ;
 
-        resizeRoutine = StartCoroutine( moveYAxis( shownPosition, time, rot ) );
+        resizeRoutine = StartCoroutine( moveYAxis( moveTo, time, rot ) );
         componentTextPanel.enabled = true;
 
         canvasComponent.enabled = true;
@@ -138,4 +159,33 @@ public class LaptopComponent : MonoBehaviour
         this.transform.localRotation = rot;
         this.transform.localPosition = endPos;
     }
+
+    public static void addToComparison( LaptopComponent t )
+    {
+        if( bestComponents == null )
+        {
+            bestComponents = new Dictionary<LaptopComponentType, LaptopComponent>();
+            bestComponents.Add( t.Type, t );
+        }
+        else
+        {
+            if( bestComponents.ContainsKey( t.Type ) )
+            {
+                if( bestComponents[t.Type].Value < t.Value )
+                {
+                    bestComponents[t.Type] = t;
+                }
+            }
+            else
+            {
+                bestComponents.Add( t.Type, t );
+            }
+        }
+    }
+
+    public void MarkAsBestOfType()
+    {
+
+    }
+
 }

@@ -19,55 +19,63 @@ public class LaptopCompareArea : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter( Collider other )
     {
-        if (other.gameObject.tag == "Laptop")
+        if( other.gameObject.tag == "Laptop" )
         {
-            laptops.Add(other.gameObject.GetComponent<Laptop>());
+            laptops.Add( other.gameObject.GetComponent<Laptop>() );
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit( Collider other )
     {
-        if (other.gameObject.tag == "Laptop")
+        if( other.gameObject.tag == "Laptop" )
         {
-            laptops.Remove(other.gameObject.GetComponent<Laptop>());
+            laptops.Remove( other.gameObject.GetComponent<Laptop>() );
         }
     }
 
-    public void CompareType(LaptopComponentType componentType)
+    public void CompareType( LaptopComponentType componentType )
     {
         var components = new List<LaptopComponent>();
-        foreach (var laptop in this.laptops)
+        foreach( var laptop in this.laptops )
         {
             LaptopComponent component;
-            if (laptop.Components.TryGetValue(componentType, out component))
+            if( laptop.Components.TryGetValue( componentType, out component ) )
             {
-                components.Add(component);
+                components.Add( component );
             }
         }
 
-        compareComponents(components);
+        compareComponents( components );
+
+        //Best component
+        if( LaptopComponent.bestComponents.ContainsKey( componentType ) )
+        {
+            LaptopComponent T = LaptopComponent.bestComponents[componentType];
+            T.SetBackgroundColor( new Color( 1f, .85f, 0, 1f ) );
+            InteractionManager.Instance.ShowBestComponent( T );
+        }
     }
 
-    private void compareComponents(List<LaptopComponent> components)
+    private void compareComponents( List<LaptopComponent> components )
     {
-        Debug.Log("Comparing " + components.Count + " objects");
+        Debug.Log( "Comparing " + components.Count + " objects" );
 
         LaptopComponent previousComponent = null;
-        foreach (var component in components)
+        foreach( var component in components )
         {
-            component.SetBackgroundColor(Color.red);
+            component.SetBackgroundColor( Color.red );
 
-            if (previousComponent != null)
+            if( previousComponent != null )
             {
-                if (component.Value > previousComponent.Value)
+                if( component.Value > previousComponent.Value )
                 {
-                    component.SetBackgroundColor(Color.green);
+                    component.SetBackgroundColor( Color.green );
                 }
                 else
                 {
-                    previousComponent.SetBackgroundColor(Color.green);
+                    previousComponent.SetBackgroundColor( Color.green );
                 }
             }
 
@@ -75,8 +83,13 @@ public class LaptopCompareArea : MonoBehaviour
         }
     }
 
-    public void StopCompareType(LaptopComponentType componentType)
+    public void StopCompareType( LaptopComponentType componentType )
     {
-
+        if( LaptopComponent.bestComponents.ContainsKey( componentType ) )
+        {
+            LaptopComponent T = LaptopComponent.bestComponents[componentType];
+            //T.SetBackgroundColor( new Color( 1f, .85f, 0, 1f ) );
+            InteractionManager.Instance.RemoveBestComponent( T );
+        }
     }
 }
