@@ -17,6 +17,7 @@ public class LaptopComponent : MonoBehaviour
     private Image comparisonImage;
     private Image componentTextPanel;
     private Text componentText;
+    private Canvas canvasComponent;
 
     private Coroutine resizeRoutine;
     private Vector3 intitialPosition;
@@ -25,23 +26,36 @@ public class LaptopComponent : MonoBehaviour
 
     public Quaternion localRot;
 
+    public bool Shown { get; private set; }
+
+    private Billboard billboard;
+    private Vector3 ShownOffset = new Vector3( 0, 1f, 0 );
+
+
     public void Start()
     {
-        comparisonImage = transform.Find("Scale/Canvas/PanelComponent").GetComponent<Image>();
-        Assert.IsFalse(comparisonImage == null);
-        componentTextPanel = transform.Find("Scale/Canvas/PanelDescription").GetComponent<Image>();
-        Assert.IsFalse(componentTextPanel == null);
-        componentText = transform.Find("Scale/Canvas/PanelDescription/Text").GetComponent<Text>();
-        Assert.IsFalse(componentText == null);
+        billboard = GetComponent<Billboard>();
+        Assert.IsNotNull( billboard, "Billboard missing from component" );
+        canvasComponent = GetComponentInChildren<Canvas>();
+
+        Shown = false;        
+        canvasComponent.enabled = false;
+
+        comparisonImage = transform.Find( "Scale/Canvas/PanelComponent" ).GetComponent<Image>();
+        Assert.IsFalse( comparisonImage == null );
+        componentTextPanel = transform.Find( "Scale/Canvas/PanelDescription" ).GetComponent<Image>();
+        Assert.IsFalse( componentTextPanel == null );
+        componentText = transform.Find( "Scale/Canvas/PanelDescription/Text" ).GetComponent<Text>();
+        Assert.IsFalse( componentText == null );
 
         componentText.text = this.BasicDescription;
 
         intitialPosition = this.transform.localPosition;
         localRot = this.transform.localRotation;
-        shownPosition = intitialPosition + new Vector3(0, 1f, 0);
+        shownPosition = intitialPosition + ShownOffset;
     }
 
-    public void SetBackgroundColor(Color color)
+    public void SetBackgroundColor( Color color )
     {
         this.comparisonImage.color = color;
     }
@@ -51,46 +65,52 @@ public class LaptopComponent : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Debug.Log(Vector3.Distance(Camera.main.transform.position, this.transform.position));
+        Debug.Log( Vector3.Distance( Camera.main.transform.position, this.transform.position ) );
     }
 
     public void Show()
     {
-        if (resizeRoutine != null)
+        if( resizeRoutine != null )
         {
-            StopCoroutine(resizeRoutine);
+            StopCoroutine( resizeRoutine );
         }
 
         Quaternion initQ = transform.localRotation;
         Vector3 init = transform.localPosition;
 
         transform.localPosition = shownPosition;
-        transform.LookAt(Camera.main.transform);
-        transform.localEulerAngles += new Vector3(0, 0, 180);
+        transform.LookAt( Camera.main.transform );
+        transform.localEulerAngles += new Vector3( 0, 0, 180 );
 
         Quaternion rot = transform.localRotation;
 
         transform.localPosition = init;
         transform.localRotation = initQ;
 
-        resizeRoutine = StartCoroutine(moveYAxis(shownPosition, time, rot));
+        resizeRoutine = StartCoroutine( moveYAxis( shownPosition, time, rot ) );
         componentTextPanel.enabled = true;
+
+        canvasComponent.enabled = true;
+        billboard.isEnabled = true;
+        Shown = true;
     }
 
     public void Hide()
     {
-        Debug.Log("Hide: " + Type);
-        if (resizeRoutine != null)
+        Debug.Log( "Hide: " + Type );
+        if( resizeRoutine != null )
         {
-            StopCoroutine(resizeRoutine);
+            StopCoroutine( resizeRoutine );
         }
 
-        resizeRoutine = StartCoroutine(moveYAxis(intitialPosition, time, localRot));
+        resizeRoutine = StartCoroutine( moveYAxis( intitialPosition, time, localRot ) );
         componentTextPanel.enabled = false;
 
+        billboard.isEnabled = false;
+        Shown = false;
     }
 
-    private IEnumerator moveYAxis(Vector3 targetPos, float time, Quaternion rot)
+    private IEnumerator moveYAxis( Vector3 targetPos, float time, Quaternion rot )
     {
         Vector3 startPos = this.transform.localPosition;
         Quaternion startRotation = this.transform.localRotation;
@@ -99,13 +119,14 @@ public class LaptopComponent : MonoBehaviour
 
         do
         {
-            this.transform.localPosition = Vector3.Lerp(startPos, endPos, currentTime / time);
-            this.transform.localRotation = Quaternion.Lerp(startRotation, rot, currentTime / time);
+            this.transform.localPosition = Vector3.Lerp( startPos, endPos, currentTime / time );
+            this.transform.localRotation = Quaternion.Lerp( startRotation, rot, currentTime / time );
             currentTime += Time.deltaTime;
 
             yield return null;
-        } while (currentTime <= time);
+        } while( currentTime <= time );
 
+        canvasComponent.enabled = Shown;
         this.transform.localRotation = rot;
         this.transform.localPosition = endPos;
     }
