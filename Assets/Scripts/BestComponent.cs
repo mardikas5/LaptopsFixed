@@ -25,7 +25,7 @@ public class BestComponent : MonoBehaviour, IGazeInteraction
         {
             if( parent != null )
             {
-
+                InteractionManager.Instance.SetInteractionTaught();
                 InteractionManager.Instance.RemoveBestComponent( parent );
                 parent = null;
             }

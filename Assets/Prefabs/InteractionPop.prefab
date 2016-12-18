@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4593015355896956}
   - component: {fileID: 198573772537936002}
   - component: {fileID: 199962377553136576}
+  - component: {fileID: 114390587613978188}
   m_Layer: 0
   m_Name: InteractionPop
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114390587613978188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296585866200804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12cd6a2f09457f7429cff8d43686538a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyAfter: 1
 --- !u!198 &198573772537936002
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -21,11 +21,9 @@ public class GazeManager : MonoBehaviour
         Ray r = new Ray( Camera.main.transform.position, Camera.main.transform.forward );
 
         RaycastHit rcH;
-        Debug.DrawRay( r.origin, r.direction * 5f, Color.red, .1f );
+        //Debug.DrawRay( r.origin, r.direction * 5f, Color.red, .1f );
         if( Physics.Raycast( r, out rcH, 20f, 1 << LayerMask.NameToLayer( "GazeRay" ) ) )
         {
-
-            Debug.Log( rcH.transform.name );
             if( inGaze != null )
             {
                 if( inGaze != rcH.transform.GetComponentInChildren<IGazeInteraction>() )
