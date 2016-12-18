@@ -900,7 +900,6 @@ MonoBehaviour:
   TechnicalDescription: Technical Description
   Type: 0
   Value: 0
-  ComparisonImage: {fileID: 0}
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114142085325178804
 MonoBehaviour:
@@ -1360,7 +1359,6 @@ MonoBehaviour:
   TechnicalDescription: Technical Description
   Type: 1
   Value: 0
-  ComparisonImage: {fileID: 0}
   localRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114933976960933090
 MonoBehaviour:

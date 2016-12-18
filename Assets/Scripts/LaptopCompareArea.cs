@@ -57,17 +57,17 @@ public class LaptopCompareArea : MonoBehaviour
         LaptopComponent previousComponent = null;
         foreach (var component in components)
         {
-            component.ComparisonImage.color = Color.red;
+            component.SetBackgroundColor(Color.red);
 
             if (previousComponent != null)
             {
                 if (component.Value > previousComponent.Value)
                 {
-                    component.ComparisonImage.color = Color.green;
+                    component.SetBackgroundColor(Color.green);
                 }
                 else
                 {
-                    previousComponent.ComparisonImage.color = Color.green;
+                    previousComponent.SetBackgroundColor(Color.green);
                 }
             }
 

@@ -14,7 +14,7 @@ public class LaptopComponent : MonoBehaviour
     public LaptopComponentType Type;
 
     public int Value;
-    public Image ComparisonImage;
+    private Image comparisonImage;
     private Image componentTextPanel;
     private Text componentText;
 
@@ -27,8 +27,8 @@ public class LaptopComponent : MonoBehaviour
 
     public void Start()
     {
-        ComparisonImage = transform.Find("Scale/Canvas/PanelComponent").GetComponent<Image>();
-        Assert.IsFalse(ComparisonImage == null);
+        comparisonImage = transform.Find("Scale/Canvas/PanelComponent").GetComponent<Image>();
+        Assert.IsFalse(comparisonImage == null);
         componentTextPanel = transform.Find("Scale/Canvas/PanelDescription").GetComponent<Image>();
         Assert.IsFalse(componentTextPanel == null);
         componentText = transform.Find("Scale/Canvas/PanelDescription/Text").GetComponent<Text>();
@@ -39,6 +39,11 @@ public class LaptopComponent : MonoBehaviour
         intitialPosition = this.transform.localPosition;
         localRot = this.transform.localRotation;
         shownPosition = intitialPosition + new Vector3(0, 1f, 0);
+    }
+
+    public void SetBackgroundColor(Color color)
+    {
+        this.comparisonImage.color = color;
     }
 
     public void Show()
