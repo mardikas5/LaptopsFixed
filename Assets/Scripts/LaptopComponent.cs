@@ -75,7 +75,6 @@ public class LaptopComponent : MonoBehaviour
         }
         Debug.Log( Vector3.Distance( Camera.main.transform.position, this.transform.position ) );
     }
-    }
 
     public void Show()
     {
