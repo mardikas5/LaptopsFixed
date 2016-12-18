@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent( typeof( LineRenderer ), typeof( Laptop ) )]
+[RequireComponent(typeof(LineRenderer), typeof(Laptop))]
 public class LineToName : MonoBehaviour
 {
     public Canvas textCanvas;
@@ -13,9 +13,9 @@ public class LineToName : MonoBehaviour
         IGrabbableExtentions.currentGrabbedChanged += UpdateLaptopName;
     }
 
-    void UpdateLaptopName( IGrabbable Laptop )
+    void UpdateLaptopName(IGrabbable Laptop)
     {
-        if( GetComponent<Laptop>().gameObject == Laptop.gameObject )
+        if (GetComponent<Laptop>().gameObject == Laptop.gameObject)
         {
             enabled = false;
         }
@@ -24,7 +24,7 @@ public class LineToName : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( enabled )
+        if (enabled)
         {
             DrawLine();
         }
@@ -36,11 +36,11 @@ public class LineToName : MonoBehaviour
 
     void DrawLine()
     {
-        Debug.Log( textCanvas.GetComponent<RectTransform>().rect.size );
+        //Debug.Log( textCanvas.GetComponent<RectTransform>().rect.size );
         RectTransform t = textCanvas.GetComponent<RectTransform>();
-        Vector3 endPoint = textCanvas.transform.position - new Vector3( 0, (t.rect.size.y * t.lossyScale.y ) / 2f, 0 );
+        Vector3 endPoint = textCanvas.transform.position - new Vector3(0, (t.rect.size.y * t.lossyScale.y) / 2f, 0);
         GetComponent<LineRenderer>().numPositions = 2;
-        GetComponent<LineRenderer>().SetPosition( 0, transform.position );
-        GetComponent<LineRenderer>().SetPosition( 1, endPoint );
+        GetComponent<LineRenderer>().SetPosition(0, transform.position);
+        GetComponent<LineRenderer>().SetPosition(1, endPoint);
     }
 }
