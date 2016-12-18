@@ -46,6 +46,14 @@ public class LaptopComponent : MonoBehaviour
         this.comparisonImage.color = color;
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        Debug.Log(Vector3.Distance(Camera.main.transform.position, this.transform.position));
+    }
+
     public void Show()
     {
         if (resizeRoutine != null)

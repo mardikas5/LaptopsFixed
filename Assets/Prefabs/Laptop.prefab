@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 223957344840673706}
   - component: {fileID: 114540963078797732}
   - component: {fileID: 114142085325178804}
+  - component: {fileID: 114016745325615056}
   m_Layer: 8
   m_Name: NameCanvas
   m_TagString: Untagged
@@ -885,6 +886,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114016745325615056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1058372452269068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4fe7f38c2b92f4ba78fc853922085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114091718949872302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1959,7 +1971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.66}
+  m_AnchoredPosition: {x: 0, y: 1.5}
   m_SizeDelta: {x: 723, y: 555}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224992621807942196
