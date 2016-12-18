@@ -2,16 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class LaptopComponent : MonoBehaviour
 {
+    public string BasicDescription;
     [Multiline]
-    public string Text;
+    public string TechnicalDescription;
+
     public LaptopComponentType Type;
 
     public int Value;
-    public Image BackgroundImage;
+    public Image ComparisonImage;
+    private Image componentTextPanel;
+    private Text componentText;
 
     private Coroutine resizeRoutine;
     private Vector3 intitialPosition;
@@ -22,6 +27,15 @@ public class LaptopComponent : MonoBehaviour
 
     public void Start()
     {
+        ComparisonImage = transform.Find("Scale/Canvas/PanelComponent").GetComponent<Image>();
+        Assert.IsFalse(ComparisonImage == null);
+        componentTextPanel = transform.Find("Scale/Canvas/PanelDescription").GetComponent<Image>();
+        Assert.IsFalse(componentTextPanel == null);
+        componentText = transform.Find("Scale/Canvas/PanelDescription/Text").GetComponent<Text>();
+        Assert.IsFalse(componentText == null);
+
+        componentText.text = this.BasicDescription;
+
         intitialPosition = this.transform.localPosition;
         localRot = this.transform.localRotation;
         shownPosition = intitialPosition + new Vector3(0, 1f, 0);
@@ -47,6 +61,7 @@ public class LaptopComponent : MonoBehaviour
         transform.localRotation = initQ;
 
         resizeRoutine = StartCoroutine(moveYAxis(shownPosition, time, rot));
+        componentTextPanel.enabled = true;
     }
 
     public void Hide()
@@ -58,6 +73,8 @@ public class LaptopComponent : MonoBehaviour
         }
 
         resizeRoutine = StartCoroutine(moveYAxis(intitialPosition, time, localRot));
+        componentTextPanel.enabled = false;
+
     }
 
     private IEnumerator moveYAxis(Vector3 targetPos, float time, Quaternion rot)
