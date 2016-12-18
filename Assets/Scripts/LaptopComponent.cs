@@ -65,7 +65,16 @@ public class LaptopComponent : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (Vector3.Distance(Camera.main.transform.position, this.transform.position) > 0.5f)
+        {
+            this.componentText.text = this.BasicDescription;
+        }
+        else
+        {
+            this.componentText.text = this.TechnicalDescription;
+        }
         Debug.Log( Vector3.Distance( Camera.main.transform.position, this.transform.position ) );
+    }
     }
 
     public void Show()
