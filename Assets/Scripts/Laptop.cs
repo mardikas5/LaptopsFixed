@@ -41,6 +41,9 @@ public class Laptop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (transform.position.y < -.7f)
+        {
+            transform.position = RespawnPoint.Instance.transform.position;
+        }
     }
 }

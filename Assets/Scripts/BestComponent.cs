@@ -12,7 +12,7 @@ public class BestComponent : MonoBehaviour, IGazeInteraction
     float inGazeTimer = 0f;
 
     //[SerializeField]
-    float inGazeLimit = 3f;
+    float inGazeLimit = 5f;
 
     //[SerializeField]
     LaptopComponent parent;

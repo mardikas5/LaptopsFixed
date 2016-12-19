@@ -25,6 +25,15 @@ public class PushButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    pressed = false;
+        //    OnTriggerEnter( null );
+        //}
+        //else
+        //{
+        //    pressed = false;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
