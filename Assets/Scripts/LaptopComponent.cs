@@ -17,8 +17,11 @@ public class LaptopComponent : MonoBehaviour
     public LaptopComponentType Type;
 
     public int Value;
+    [SerializeField]
     private Image comparisonImage;
+      [SerializeField]
     private Image componentTextPanel;
+      [SerializeField]
     private Text componentText;
     private Canvas canvasComponent;
 

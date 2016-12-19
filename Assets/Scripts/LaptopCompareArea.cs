@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaptopCompareArea : MonoBehaviour
 {
-
+    [SerializeField]
     private List<Laptop> laptops = new List<Laptop>();
 
     // Use this for initialization

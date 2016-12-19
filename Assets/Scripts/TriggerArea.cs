@@ -25,10 +25,10 @@ public class TriggerArea : MonoBehaviour
 
     private void OnControllerTriggerPress( Transform controller )
     {
-        Debug.Log("1 press");
+        //Debug.Log("1 press");
         if( controller1InTrigger )
         {
-            Debug.Log("set");
+            //Debug.Log("set");
             velocity = controller1.GetComponent<SetVelocity>();
         }
 
@@ -52,13 +52,13 @@ public class TriggerArea : MonoBehaviour
             if( other.gameObject == controller1 )
             {
                 Highlight = false;
-                Debug.Log( "Trigger Exit" );
+                //Debug.Log( "Trigger Exit" );
                 controller1InTrigger = false;
             }
             else if( other.gameObject == controller2 )
             {
                 Highlight = false;
-                Debug.Log( "Trigger Exit" );
+                //Debug.Log( "Trigger Exit" );
                 controller2InTrigger = false;
             }
         }
@@ -71,13 +71,13 @@ public class TriggerArea : MonoBehaviour
         if( other.gameObject == controller1 )
         {
             Highlight = true;
-            Debug.Log( "Trigger Enter" );
+            //Debug.Log( "Trigger Enter" );
             controller1InTrigger = true;
         }
         else if( other.gameObject == controller2 )
         {
             Highlight = true;
-            Debug.Log( "Trigger Enter" );
+            //Debug.Log( "Trigger Enter" );
             controller2InTrigger = true;
         }
         // }
@@ -95,22 +95,22 @@ public class TriggerArea : MonoBehaviour
         {
             if( parent.dragged == this )
             {
-                this.gameObject.layer = LayerMask.NameToLayer( "Outline" );
+                //this.gameObject.layer = LayerMask.NameToLayer( "Outline" );
                 return;
             }
             else if( parent.dragged != null )
             {
-                this.gameObject.layer = LayerMask.NameToLayer( "Default" );
+                //this.gameObject.layer = LayerMask.NameToLayer( "Default" );
                 return;
             }
         }
         if( Highlight )
         {
-            this.gameObject.layer = LayerMask.NameToLayer( "Outline" );
+            //this.gameObject.layer = LayerMask.NameToLayer( "Outline" );
         }
         else
         {
-            this.gameObject.layer = LayerMask.NameToLayer( "Default" );
+            //this.gameObject.layer = LayerMask.NameToLayer( "Default" );
         }
     }
 }
