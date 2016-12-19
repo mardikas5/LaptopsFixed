@@ -80,7 +80,7 @@ public class LaptopComponent : MonoBehaviour
             billboard.isEnabled = true;
         }
 
-        if( distance > 0.5f )
+        if( distance > 1f )
         {
             this.componentText.text = this.BasicDescription;
         }

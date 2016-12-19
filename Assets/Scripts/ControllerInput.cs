@@ -6,6 +6,7 @@ public class ControllerInput : MonoBehaviour
 {
 
     private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)track.index); } }
+    [SerializeField]
     private SteamVR_TrackedObject track;
 
     public delegate void ClickAction(Transform controller);
@@ -15,7 +16,7 @@ public class ControllerInput : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        track = this.GetComponent<SteamVR_TrackedObject>();
+        //track = this.GetComponent<SteamVR_TrackedObject>();
     }
 
     // Update is called once per frame

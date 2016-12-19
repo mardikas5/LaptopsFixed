@@ -25,8 +25,10 @@ public class TriggerArea : MonoBehaviour
 
     private void OnControllerTriggerPress( Transform controller )
     {
+        Debug.Log("1 press");
         if( controller1InTrigger )
         {
+            Debug.Log("set");
             velocity = controller1.GetComponent<SetVelocity>();
         }
 
