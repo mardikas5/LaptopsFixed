@@ -16,31 +16,31 @@ public class Grab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if( Input.GetKeyDown( KeyCode.R ) )
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
             RaycastHit hit;
-            Debug.DrawRay(ray.origin, ray.direction, Color.red, 10);
-            if (Physics.Raycast(ray, out hit))
+            Debug.DrawRay( ray.origin, ray.direction, Color.red, 10 );
+            if( Physics.Raycast( ray, out hit ) )
             {
                 this.transform.position = hit.point;
             }
         }
     }
 
-    private void OnControllerTriggerPress(Transform controller)
+    private void OnControllerTriggerPress( Transform controller )
     {
-        foreach (GameObject other in objectsInRange)
+        foreach( GameObject other in objectsInRange )
         {
             other.GetComponent<Rigidbody>().isKinematic = true;
             other.transform.parent = this.transform;
         }
     }
 
-    private void OnControllerTriggerUnPress(Transform controller)
+    private void OnControllerTriggerUnPress( Transform controller )
     {
-        foreach (GameObject other in objectsInRange)
+        foreach( GameObject other in objectsInRange )
         {
             other.GetComponent<Rigidbody>().isKinematic = false;
             other.GetComponent<Rigidbody>().velocity = this.GetComponent<SetVelocity>().VelocityUnscaled;
@@ -50,19 +50,29 @@ public class Grab : MonoBehaviour
         objectsInRange.Clear();
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter( Collider other )
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
+        if( other.gameObject.tag == ( "Grabable" ) )
         {
-            objectsInRange.Add(other.gameObject);
+            foreach( MeshRenderer r in other.GetComponentsInChildren<MeshRenderer>() )
+            {
+                r.gameObject.layer = LayerMask.NameToLayer( "Outline" );
+            }
+            other.gameObject.layer = LayerMask.NameToLayer( "Outline" );
+            objectsInRange.Add( other.gameObject );
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    public void OnTriggerExit( Collider other )
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Grabable"))
+        if( other.gameObject.tag == ( "Grabable" ) )
         {
-            objectsInRange.Remove(other.gameObject);
+            foreach( MeshRenderer r in other.GetComponentsInChildren<MeshRenderer>() )
+            {
+                r.gameObject.layer = LayerMask.NameToLayer( "Default" );
+            }
+            other.gameObject.layer = LayerMask.NameToLayer( "Default" );
+            objectsInRange.Remove( other.gameObject );
         }
     }
 }

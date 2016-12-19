@@ -13,8 +13,7 @@ public class PostEffect : MonoBehaviour
     Camera TempCam;
     Material Post_Mat;
     public RenderTexture TempRT;
- 
- 
+
     void Start () 
     {
         AttachedCamera = GetComponent<Camera>();
@@ -22,7 +21,7 @@ public class PostEffect : MonoBehaviour
         TempCam.enabled = false;
         Post_Mat = CopyFrom;
     }
- 
+
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         //set up a temporary camera
